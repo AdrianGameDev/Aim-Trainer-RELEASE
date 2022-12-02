@@ -153,7 +153,7 @@ void GameEngine::updateEnemies(RenderWindow& App) {
     if (Mouse::isButtonPressed(Mouse::Left)) {
 
         if (mouseHeld == false) {
-
+            
             mouseHeld = true;
             bool deleted = false;
 
@@ -162,7 +162,7 @@ void GameEngine::updateEnemies(RenderWindow& App) {
                 if (enemies[i].getGlobalBounds().contains(mousePosView)) {
 
                     sound.play();
-
+          
                     if (enemies[i].getFillColor() == Color::White) {
 
                         points += 10;
@@ -221,7 +221,8 @@ void GameEngine::update(RenderWindow& App) {
     }
 
     if (health == 0) {
-
+        ofstream fout("score.txt");
+        fout << points;
         endGame = true;
     }
 }
@@ -270,7 +271,8 @@ int GameEngine::Run(RenderWindow& App)
 
             case Event::KeyPressed:
                 if (event.key.code == Keyboard::Escape) {
-
+                    ofstream fout("score.txt");
+                    fout << points;
                     return(2);
                 }
                 break;

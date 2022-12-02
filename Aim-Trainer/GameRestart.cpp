@@ -9,13 +9,27 @@ int GameRestart::Run(sf::RenderWindow& App) {
 		cout << "ERROR::GameEngine::initFonts::Resources/Fonts/Dosis-Light.ttf!";
 	}
 
+	ifstream fin("score.txt");
+	fin >> score;
+	textScore = "Score: ";
+	score = textScore + score;
+
+	Score.setFont(font);
+	Score.setCharacterSize(150);
+	Score.setFillColor(sf::Color::White);
+	Score.setString(score);
+	sf::FloatRect textRect = Score.getLocalBounds();
+	Score.setOrigin(textRect.left + textRect.width / 2.0f,
+		textRect.top + textRect.height / 2.0f);
+	Score.setPosition(sf::Vector2f(App.getSize().x / 2.0f, App.getSize().y / 2.0f - 400.f));
+
 	Retry.setFont(font);
 	Retry.setCharacterSize(150);
 	Retry.setFillColor(sf::Color::White);
 	Retry.setString("Restart");
-	sf::FloatRect textRect = Retry.getLocalBounds();
-	Retry.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
+	sf::FloatRect textRect0 = Retry.getLocalBounds();
+	Retry.setOrigin(textRect0.left + textRect0.width / 2.0f,
+		textRect0.top + textRect0.height / 2.0f);
 	Retry.setPosition(sf::Vector2f(App.getSize().x / 2.0f, App.getSize().y / 2.0f - 200.f));
 
 	ReturnToMenu.setFont(font);
@@ -103,6 +117,7 @@ int GameRestart::Run(sf::RenderWindow& App) {
 
 		App.clear();
 
+		App.draw(Score);
 		App.draw(Retry);
 		App.draw(ReturnToMenu);
 		App.draw(Exit);
